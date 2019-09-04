@@ -359,8 +359,8 @@ def listen():
 
     def _consume(queue):
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        sock.bind(('0.0.0.0', 6899))
-        print('listening for sdb notifications on :6899...')
+        sock.bind(('0.0.0.0', SDB_PORT))
+        print('listening for sdb notifications on :{}...'.format(SDB_PORT))
         while True:
             r, w, x = select.select([sock], [], [])
             for i in r:
@@ -382,7 +382,7 @@ def listen():
                 port = int(port)
                 print('opening telnet session at port :%d...' % port)
                 telnet(port).connect()
-                print('listening for sdb notifications on :6899...')
+                print('listening for sdb notifications on :{}...'.format(SDB_PORT))
             except Empty:
                 pass
     except KeyboardInterrupt:
