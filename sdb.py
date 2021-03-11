@@ -29,7 +29,7 @@ __all__ = (
     'DEFAULT_PORT', 'Sdb', 'debugger', 'set_trace',
 )
 
-DEFAULT_PORT = 6899
+DEFAULT_PORT = 7899
 
 SDB_HOST = os.environ.get('SDB_HOST') or '127.0.0.1'
 SDB_PORT = int(os.environ.get('SDB_PORT') or DEFAULT_PORT)
@@ -144,7 +144,7 @@ class Sdb(Pdb):
                 if self.notify_host:
                     socket.socket(socket.AF_INET, socket.SOCK_DGRAM).sendto(
                         str(this_port).encode('utf-8'),
-                        (self.notify_host, 6899)
+                        (self.notify_host, 7899)
                     )
                 return _sock, this_port
         else:
@@ -359,8 +359,8 @@ def listen():
 
     def _consume(queue):
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        sock.bind(('0.0.0.0', 6899))
-        print('listening for sdb notifications on :6899...')
+        sock.bind(('0.0.0.0', 7899))
+        print('listening for sdb notifications on :7899...')
         while True:
             r, w, x = select.select([sock], [], [])
             for i in r:
@@ -382,7 +382,7 @@ def listen():
                 port = int(port)
                 print('opening telnet session at port :%d...' % port)
                 telnet(port).connect()
-                print('listening for sdb notifications on :6899...')
+                print('listening for sdb notifications on :7899...')
             except Empty:
                 pass
     except KeyboardInterrupt:
